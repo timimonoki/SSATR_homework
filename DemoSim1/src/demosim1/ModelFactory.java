@@ -26,6 +26,7 @@ public class ModelFactory {
             JSONArray array = obj.getJSONArray("nodes");
             for(int i = 0 ; i < array.length() ; i++){
                 list.add(array.getJSONObject(i).getInt("node"));
+                
             }
         if(list.size()!=2)
             throw new Exception("Json must contani exactly 2 nodes.");

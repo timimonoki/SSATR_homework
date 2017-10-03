@@ -22,11 +22,9 @@ public class Simulator extends Thread{
     boolean active = true;
     public void run(){
         int step = 0;
-        while(active){
+        while(!m.canStop()){
             step++;      
             m.step(step);
-            if(step>100)
-                active = false;
             try {Thread.sleep(500);} catch (InterruptedException ex) {}
         }
     }

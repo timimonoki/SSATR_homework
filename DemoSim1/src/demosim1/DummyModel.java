@@ -12,11 +12,16 @@ public class DummyModel implements Model{
     
     @Override
     public void step(int step) {
-        if(node1<node2+1){
+        if(node1<node2){
             node1++;
             node2--;
         }
         System.out.println("node1 = "+node1+" node2 = "+node2+" at step "+step);
+    }
+
+    @Override
+    public boolean canStop() {
+        return node2 - node1 <2;
     }
     
 }

@@ -1,0 +1,39 @@
+{
+	"places": [{
+		"id": 1,
+		"j": 0
+	}, {
+		"id": 2,
+		"j": 1
+	}],
+	"transitions": [{
+			"inputs": [{
+				"id": 1
+			}, {
+				"id": 2
+			}, {
+				"id": 3
+			}],
+			"outputs": [{
+				"id": 4
+			}],
+			"tmin": 1,
+			"tmax": 2
+		},
+		{
+			"inputs": [{
+				"id": 1
+			}, {
+				"id": 2
+			}, {
+				"id": 3
+			}],
+			"outputs": [{
+				"id": 4
+			}],
+			"tmin": 1,
+			"tmax": 2
+		}
+	]
+
+}
