@@ -5,6 +5,7 @@
  */
 package demosim1;
 
+import demosim1.dummy.DummyModel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;

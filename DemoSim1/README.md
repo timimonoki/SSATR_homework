@@ -1,0 +1,2 @@
+Proiectul este realizat cu Netbeans 8.0.2. 
+Pentru rularea exemplului este nevoie de libraria json.org ce poate fi descarcata de aici : https://search.maven.org/remotecontent?filepath=org/json/json/20170516/json-20170516.jar 

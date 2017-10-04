@@ -1,6 +1,11 @@
 
 package demosim1;
 
+/**
+ * A sample application used as a starting point for implementing a timed petri net simulator.
+ * SSATR / IASIC & ICAF / Master / An 1 / 2017 
+ * @author evo
+ */
 public class Main {
 
     /**
