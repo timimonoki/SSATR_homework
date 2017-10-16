@@ -6,6 +6,9 @@
 package demosim1;
 
 import demosim1.dummy.DummyModel;
+import demosim1.dummy.Node;
+import demosim1.dummy.Transition;
+import demosim1.dummy.utils.Utils;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -20,21 +23,22 @@ public class ModelFactory {
     
     public static Model loadDummyModelFromJSONFile(String modelFile) throws Exception{
         String jsonContent = new String(Files.readAllBytes(Paths.get(modelFile)));
-        //JSONObject obj = new JSONObject("{nodes : [{node:10}, {node:30}]}");
         JSONObject obj = new JSONObject(jsonContent);
-
-        List<Integer> list = new ArrayList<Integer>();
-            JSONArray array = obj.getJSONArray("nodes");
-            for(int i = 0 ; i < array.length() ; i++){
-                list.add(array.getJSONObject(i).getInt("node"));
-                
-            }
-        if(list.size()!=2)
-            throw new Exception("Json must contani exactly 2 nodes.");
         
-        DummyModel model = new DummyModel(list.get(0), list.get(1));
+        List<Node> nodes = new ArrayList<Node>();
+        List<Transition> transitions = new ArrayList<Transition>();
+        
+        JSONArray nodesArray = obj.getJSONArray("nodes");
+        JSONArray transitionsArray = obj.getJSONArray("transitions");
+        for(int i = 0 ; i < nodesArray.length(); i++) {
+            nodes.add(Utils.convertJsonObjectToNodeType(nodesArray.getJSONObject(i)));                
+        }
+        for(int i=0; i < transitionsArray.length(); i++) {
+            transitions.add(Utils.convertJsonObjectToTransition(transitionsArray.getJSONObject(i)));
+        }
+        
+        DummyModel model = new DummyModel(nodes, transitions);
         
         return model;
-    }
-    
+    }    
 }

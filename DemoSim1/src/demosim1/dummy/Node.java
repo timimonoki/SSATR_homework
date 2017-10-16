@@ -11,20 +11,30 @@ package demosim1.dummy;
  */
 public class Node {
     private int dir;
-    private int value;
+    private String name;
+    private int token;    
 
-    public Node(int value, int dir) {
+    public Node(String name, int token, int dir) {
+        this.name = name;
         this.dir = dir;
-        this.value = value;
+        this.token = token;
+    }
+    
+    public Node(String name, int token) {
+        this.name = name;
+        this.token = token;
     }
 
-    public int getValue() {
-        return value;
+    public int getToken() {
+        return token;
+    }
+    
+    public String getName() {
+        return name;
     }
 
     public int execute(){
-        value = value + dir;
-        return value;
-    }
-    
+        token = token + dir;
+        return token;
+    }    
 }
