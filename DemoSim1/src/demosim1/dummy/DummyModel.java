@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class DummyModel implements Model {
+public class DummyModel extends Thread implements Model {
 
     List<Node> nodes;
     List<Transition> transitions;
@@ -27,19 +27,7 @@ public class DummyModel implements Model {
         Transition transition = transitions.get((step -1) % (transitions.size() -1));
         System.out.println("Transition that is executing is: " +transition.getName());
         
-        for(String in: transition.getInputs()) {
-            input = Utils.searchForANodeAfterItsName(in, nodes);
-            if(input.getToken() > 0) {
-                necessaryToken++;
-            }
-        }
-        if(transition.getInputs().size() == necessaryToken) {
-            if(transition.getDuration().get("duration_abs") != 0) {
-                Thread.sleep(r.nextInt(transition.getDuration().get("duration_abs")));
-            }else if((transition.getDuration().get("duration_max") !=0) && (transition.getDuration().get("duration_min") != 0)){
-                System.out.println("Random number is: " +((int)transition.getDuration().get("duration_max") - (int)transition.getDuration().get("duration_min") + (int)transition.getDuration().get("duration_min")));
-                Thread.sleep(Long.valueOf(r.nextInt((transition.getDuration().get("duration_max") - transition.getDuration().get("duration_min")) + transition.getDuration().get("duration_min"))));
-            }
+        if(transition.canExecute(nodes) && transition.finishedWaiting()) {
             for(String in: transition.getInputs()) {
                 input = Utils.searchForANodeAfterItsName(in, nodes);
                 input.execute(-1);

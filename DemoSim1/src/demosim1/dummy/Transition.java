@@ -5,8 +5,10 @@
  */
 package demosim1.dummy;
 
+import demosim1.dummy.utils.Utils;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  *
@@ -41,7 +43,34 @@ public class Transition {
         return outputs;
     }
     
-    public void execute() {
+    public boolean canExecute(List<Node> nodes) {
+        boolean canExecute = false;
+        Node input;
+        int necessaryToken = 0;
+        for(String in: inputs) {
+            input = Utils.searchForANodeAfterItsName(in, nodes);
+            if(input.getToken() > 0) {
+                necessaryToken++;
+            }
+        }  
+        if(inputs.size() == necessaryToken) {
+            canExecute = true; 
+        }
+        return canExecute;
     }
     
+    public boolean finishedWaiting() throws InterruptedException {
+        boolean finishedWaiting = false;
+        Random r = new Random();
+        if(duration.get("duration_abs") != 0) {
+            Thread.sleep(r.nextInt(duration.get("duration_abs")));
+            finishedWaiting = true;
+        }else if((duration.get("duration_max") !=0) && (duration.get("duration_min") != 0)){
+            Thread.sleep(Long.valueOf(r.nextInt((duration.get("duration_max") - duration.get("duration_min")) + duration.get("duration_min"))));
+            finishedWaiting = true;
+        }else {
+            finishedWaiting = true;
+        }
+        return finishedWaiting;
+    }
 }
