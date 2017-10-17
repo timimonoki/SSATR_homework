@@ -26,14 +26,10 @@ public class Utils {
     }
     
     public static Transition convertJsonObjectToTransition(JSONObject json) {
-        System.out.println("JSON  " +json);
         Map<String, Integer> duration = new HashMap<String, Integer>();
         JSONObject jsonDuration = json.getJSONObject("duration");
-        System.out.println("JSON DURATION  " +jsonDuration);
         JSONArray jsonInputs = json.getJSONArray("inputs");
-        System.out.println("JSON INPUTS  " +jsonInputs);
         JSONArray jsonOutputs = json.getJSONArray("outputs");
-        System.out.println("JSON OUTPUTS  " +jsonOutputs);
         List<String> inputs = new ArrayList<String>();
         List<String> outputs = new ArrayList<String>();
         
@@ -50,5 +46,25 @@ public class Utils {
         }
         
         return new Transition(json.getString("name"), duration, inputs, outputs);
-    }    
+    }  
+    
+    public static Node searchForANodeAfterItsName(String name, List<Node> listToSearch) {
+        for(Node node: listToSearch) {
+            if(node.getName().equals(name)) {
+                return node;
+            }
+        }
+        return null;
+    }
+    
+    public static int getMaximumWaitTimeForATransition(List<Transition> transitions) {
+        int maximumWait = 0;
+        for(Transition transition: transitions) {
+            maximumWait = transition.getDuration().get("duration_abs");            
+            if(maximumWait < transition.getDuration().get("duration_max")) {
+                maximumWait = transition.getDuration().get("duration_max");
+            }
+        }
+        return maximumWait;
+    }
 }

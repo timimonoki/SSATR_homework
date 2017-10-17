@@ -9,9 +9,9 @@ package demosim1;
  * @author evo
  */
 public interface Model {
-    public void step(int step);
+    public void step(int step) throws InterruptedException;
 
-    public boolean canStop();
+    public boolean cannotExecute(int step) throws InterruptedException;
     
 }
 

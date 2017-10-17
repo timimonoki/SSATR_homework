@@ -15,6 +15,5 @@ public class Main {
         Simulator s = 
                 new Simulator(ModelFactory.loadDummyModelFromJSONFile("model1.json"));
         s.start();
-    }
-    
+    }    
 }

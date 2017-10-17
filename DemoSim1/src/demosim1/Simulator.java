@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  *
  * @author evo
  */
-public class Simulator extends Thread{
+public class Simulator extends Thread {
     private Model m;
 
     public Simulator(Model m) {
@@ -20,12 +20,16 @@ public class Simulator extends Thread{
     }
     
     boolean active = true;
-    public void run(){
+    public void run() {
         int step = 0;
-        while(!m.canStop()){
-            step++;      
-            m.step(step);
-            try {Thread.sleep(500);} catch (InterruptedException ex) {}
+        try {
+            while(!m.cannotExecute(step)){
+                step++;
+                m.step(step);
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException ex) {
+            System.out.println("Something wrong happened");
         }
     }
 }

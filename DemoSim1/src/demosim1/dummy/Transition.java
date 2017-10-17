@@ -41,4 +41,7 @@ public class Transition {
         return outputs;
     }
     
+    public void execute() {
+    }
+    
 }
