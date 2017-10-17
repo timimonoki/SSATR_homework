@@ -25,6 +25,7 @@ public class Simulator extends Thread {
         try {
             while(!m.cannotExecute(step)){
                 step++;
+                System.out.println("Executing step " +step +"...\n");
                 m.step(step);
                 Thread.sleep(500);
             }
