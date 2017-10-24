@@ -2,43 +2,87 @@
 	"nodes": [{
 		"node": {
 				"name": "P0",
-				"token": 1
+				"token": 1,
+				"inputs": [],
+				"outputs": [{
+					"name": "T1"
+				}]
 			}
 	}, 
 	{
 		"node": {
 				"name": "P1",
-				"token": 0
+				"token": 0,
+				"inputs": [{
+					"name": "T0"
+				}],
+				"outputs": [{
+					"name": "T1"
+				}]
 			}
 	}, 
 	{
 		"node": {
 				"name": "P2",
-				"token": 0
+				"token": 0,
+				"inputs": [{
+					"name": "T0"
+				}],
+				"outputs": [{
+					"name": "T2"
+				}]
 			}
 	}, 
 	{
 		"node": {
 				"name": "P3",
-				"token": 0
+				"token": 0,
+				"inputs": [{
+					"name": "T1"
+				}],
+				"outputs": [{
+					"name": "T3"
+				}]
 			}
 	},
 	{
 		"node": {
 				"name": "P4",
-				"token": 1
+				"token": 1,
+				"inputs": [{
+					"name": "T7",
+					"name": "T8"
+				}],
+				"outputs": [{
+					"name": "T3",
+					"name": "T6"
+				}]
 			}
 	},
 	{
 		"node": {
 				"name": "P5",
-				"token": 0
+				"token": 0,
+				"inputs": [{
+					"name": "T2"
+				}],
+				"outputs": [{
+					"name": "T4"
+				}]
 			}
 	},
 	{
 		"node": {
 				"name": "P6",
-				"token": 1
+				"token": 1,
+				"inputs": [{
+					"name": "T7",
+					"name": "T8"
+				}],
+				"outputs": [{
+					"name": "T5",
+					"name": "T4"
+				}]
 			}
 	},
 	{

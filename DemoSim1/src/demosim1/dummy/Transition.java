@@ -20,6 +20,8 @@ public class Transition {
     private List<String> inputs;
     private List<String> outputs;
     
+    private Integer waitedFor = 0;
+    
     public Transition(String name, Map<String, Integer> duration, List<String> inputs, List<String> outputs) {
         this.name = name;
         this.duration = duration;
@@ -41,6 +43,10 @@ public class Transition {
     
     public List<String> getOutputs() {
         return outputs;
+    }
+    
+    public Integer getWaitedFor() {
+        return waitedFor;
     }
     
     public boolean canExecute(List<Node> nodes) {
@@ -66,11 +72,31 @@ public class Transition {
             Thread.sleep(r.nextInt(duration.get("duration_abs")));
             finishedWaiting = true;
         }else if((duration.get("duration_max") !=0) && (duration.get("duration_min") != 0)){
-            Thread.sleep(Long.valueOf(r.nextInt((duration.get("duration_max") - duration.get("duration_min")) + duration.get("duration_min"))));
+            waitedFor = r.nextInt((duration.get("duration_max") - duration.get("duration_min")) + duration.get("duration_min"));
+            Thread.sleep(Long.valueOf(waitedFor));
             finishedWaiting = true;
         }else {
             finishedWaiting = true;
         }
         return finishedWaiting;
+    }
+    
+    public boolean canWaitSomeMore() {
+        boolean canWait = false;
+        if((duration.get("duration_max") !=0) && (duration.get("duration_min") != 0)){
+            if(waitedFor < duration.get("duration_max")) {
+                canWait = true;
+            }
+        }
+        return canWait;
+    }
+    
+    public void waitSomeMore() {
+        Random r = new Random();
+        if((duration.get("duration_max") !=0) && (duration.get("duration_min") != 0)){
+            if(waitedFor < duration.get("duration_max")) {
+                waitedFor = r.nextInt((1 - (duration.get("duration_max") - waitedFor)) + 1);
+            }
+        }        
     }
 }

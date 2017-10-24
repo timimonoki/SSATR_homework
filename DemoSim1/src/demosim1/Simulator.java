@@ -23,7 +23,8 @@ public class Simulator extends Thread {
     public void run() {
         int step = 0;
         try {
-            while(!m.cannotExecute(step)){
+//            while(!m.cannotExecute(step)){
+              while(step < 7){
                 step++;
                 System.out.println("Executing step " +step +"...\n");
                 m.step(step);

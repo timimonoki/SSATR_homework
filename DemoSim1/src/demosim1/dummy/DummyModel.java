@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class DummyModel extends Thread implements Model {
+public class DummyModel implements Model {
 
     List<Node> nodes;
     List<Transition> transitions;
@@ -24,13 +24,30 @@ public class DummyModel extends Thread implements Model {
         boolean deadlock = false;
         int necessaryToken = 0;
         Random r = new Random();
+        List<Branch> branches = new ArrayList<Branch>();
+        
         Transition transition = transitions.get((step -1) % (transitions.size() -1));
-        System.out.println("Transition that is executing is: " +transition.getName());
+        System.out.println("Transition that is executing from DummyModel is: " +transition.getName());
         
         if(transition.canExecute(nodes) && transition.finishedWaiting()) {
+            if(transition.getOutputs().size() >= 2) {
+                System.out.println("Petri Net starts to execute " + transition.getOutputs().size() + " threads in parallel from DummyModel \n");
+                for(int i=0; i<transition.getOutputs().size(); i++) {
+                    Node node = Utils.searchForANodeAfterItsName(transition.getOutputs().get(i), nodes);
+                    branches.add(new Branch(nodes, transitions, node.getOutputs().get(i), String.valueOf(i)));
+                    branches.get(i).start();
+                    branches.get(i).join();                                     
+                }
+            }
+            if(transition.canWaitSomeMore()) {
+                transition.waitSomeMore();
+            }
+            
             for(String in: transition.getInputs()) {
                 input = Utils.searchForANodeAfterItsName(in, nodes);
-                input.execute(-1);
+                if(input.getToken() > 0) {
+                    input.execute(-1);
+                }
             }      
             for(String out: transition.getOutputs()) {
                 output = Utils.searchForANodeAfterItsName(out, nodes);

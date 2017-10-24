@@ -22,7 +22,16 @@ public class Utils {
     
     public static Node convertJsonObjectToNodeType(JSONObject json) {
         JSONObject node = json.getJSONObject("node");
-        return new Node(node.getString("name"), node.getInt("token"));
+        return new Node(node.getString("name"), node.getInt("token"), convertJsonObjectToList(json.getJSONArray("inputs")), convertJsonObjectToList(json.getJSONArray("outputs")));
+    }
+    
+    public static List<String> convertJsonObjectToList(JSONArray json) {
+        List<String> list = new ArrayList<>();
+        for(int i=0; i<json.length(); i++) {
+            JSONObject rec = json.getJSONObject(i);
+            list.add(rec.getString("name"));            
+        }
+        return list;
     }
     
     public static Transition convertJsonObjectToTransition(JSONObject json) {
@@ -52,6 +61,15 @@ public class Utils {
         for(Node node: listToSearch) {
             if(node.getName().equals(name)) {
                 return node;
+            }
+        }
+        return null;
+    }
+    
+    public static Transition searchForATransitionAfterItsName(String name, List<Transition> listToSeatch) {
+        for(Transition transition: listToSeatch) {
+            if(transition.getName().equals(name)) {
+                return transition;
             }
         }
         return null;
